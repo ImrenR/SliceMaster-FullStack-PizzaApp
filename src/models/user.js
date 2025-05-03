@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
         trim:true,
         required: true,
         set:(password)=>passwordEncrypt(password),
+        // validate will be added in controller
     },
     email:{
         type: String,
