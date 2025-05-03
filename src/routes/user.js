@@ -1,9 +1,15 @@
-"use strict"
-/* -------------------------------------------------------
-    | FULLSTACK TEAM | NODEJS / EXPRESS |
-------------------------------------------------------- */
-const router = require('express').Router()
-/* ------------------------------------------------------- */
+"use strict";
 
+const router = require("express").Router();
+const user = require("../controllers/userController");
 /* ------------------------------------------------------- */
-module.exports = router
+router.route("/").get(user.list).post(user.create);
+
+router
+  .route("/:id")
+  .get(user.read)
+  .put(user.update)
+  .patch(user.update)
+  .delete(user.deleteUser);
+/* ------------------------------------------------------- */
+module.exports = router;
