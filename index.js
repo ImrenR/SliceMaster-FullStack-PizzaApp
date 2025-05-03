@@ -3,7 +3,7 @@
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
 /*
-    $ cp .env-sample .env
+    $ cp .env-sample .env  
     $ npm init -y
     $ npm i express dotenv mongoose express-async-errors
     $ npm i morgan swagger-autogen swagger-ui-express redoc-express
@@ -20,9 +20,8 @@ const app = express()
 require('dotenv').config()
 const PORT = process.env?.PORT || 8000
 
-// qeury parse was 'extended' with v5 it is using built in libriray which 'qs(querystring)'
-// extended -> ?a[b]=1 = { a: { b:1 }} & qs -> ?a[b]=1 = { 'a[b]':1 }
-app.set('query parser', 'extended');
+//asyncErrors to errorHandlers:
+require('express-async-errors')
 
 /* ------------------------------------------------------- */
 // Configrations:
