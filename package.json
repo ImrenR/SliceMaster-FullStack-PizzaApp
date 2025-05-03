@@ -18,5 +18,13 @@
     "redoc-express": "^2.1.0",
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ImrenR/SliceMaster-API-A-RESTful-Backend-for-Pizza-Delivery-Apps.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ImrenR/SliceMaster-API-A-RESTful-Backend-for-Pizza-Delivery-Apps/issues"
+  },
+  "homepage": "https://github.com/ImrenR/SliceMaster-API-A-RESTful-Backend-for-Pizza-Delivery-Apps#readme"
 }
