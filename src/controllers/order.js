@@ -3,7 +3,7 @@
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
 const Order = require("../models/order");
-
+const Pizza = require("../models/pizza");
 module.exports = {
   list: async (req, res) => {
     /* 
@@ -25,7 +25,13 @@ module.exports = {
           
     #swagger.ignore = true
         */
-  // To be added after Pizza
+    const pizza  = await Pizza.findOne({ _id: req.body.pizzaId });
+    if (!pizza) {
+      return res.status(404).send({
+        error: true,
+        message: "Pizza not found",
+      });
+    }
     const result = await Order.create(req.body);
 
     res.status(201).send({
