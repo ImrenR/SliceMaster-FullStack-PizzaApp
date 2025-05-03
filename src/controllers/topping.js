@@ -28,9 +28,7 @@ module.exports = {
   },
 
   read: async (req, res) => {
-    /* 
-   #swagger.ignore=true
-   */
+    
     const result = await Toppings.findOne({ _id: req.params.id });
 
     res.status(200).send({
@@ -41,9 +39,7 @@ module.exports = {
 
   update: async (req, res) => {
    
-/*
-   #swagger.ignore=true
- */
+
 
     const result = await Toppings.findByIdAndUpdate(
       { _id: req.params.id },
@@ -60,9 +56,7 @@ module.exports = {
     });
   },
   delete: async (req, res) => {
-    /* 
-   #swagger.ignore=true
-   */
+ 
   
     const result = await Toppings.deleteOne({ _id: req.params.id });
     // deleteOne will delete the document and return the result
