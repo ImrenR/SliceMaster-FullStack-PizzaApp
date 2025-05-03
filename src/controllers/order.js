@@ -32,6 +32,9 @@ module.exports = {
         message: "Pizza not found",
       });
     }
+    req.body.price= pizza.price;
+    //This means that the price of the order will be the same as the price of the pizza
+    
     const result = await Order.create(req.body);
 
     res.status(201).send({
