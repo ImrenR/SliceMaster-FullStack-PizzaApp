@@ -74,13 +74,31 @@ const accessToken = jwt.sign(accessData, process.env.ACCESS_KEY, {expiresIn: '15
       user:user
     });
   },
+
   logout: async (req, res) => {
-    // Implement logout logic here
+   
+    const auth =req.headers?.authorization;
+    const tokenArr = auth ? auth.split(' ') : null;
+
+    if(tokenArr && tokenArr[0] == 'Token') {
+        const tokenData = await Token.deleteOne({token:tokenArr[1]})
+
+    
     res.status(200).send({
       error: false,
-      message: "Logout successful",
+      result,
+      message: "Simple Token: Token deleted successfully",
     });
+
+   }else if (tokenArr && tokenArr[0] == 'Bearer') {
+
+     res.status(200).send({
+        error: false,
+        message: "JWT: No need any action for logout. Logout is automatic when token expired",
+    })
+  }
   },
+  
   refresh: async (req, res) => {
     // Implement refresh logic here
     res.status(200).send({
