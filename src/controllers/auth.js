@@ -19,10 +19,8 @@ module.exports = {
 
         const { username,email, password } = req.body;
          
-        if(!(username || email) && !password){throw new CustomError("Username or email and password are required", 401);
-        } else {
-
-        }
+        if(!(username || email) && !password){throw new CustomError("Username or email and password are required", 401);}
+         
         
         res.status(200).send({ 
             error: false,
