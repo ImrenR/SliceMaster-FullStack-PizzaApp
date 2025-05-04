@@ -1,4 +1,6 @@
 'use strict';
+const CustomError = require("../helpers/customError");
+const User  = require("../models/user");
 
 module.exports = {
     login: async (req, res) => {
@@ -19,8 +21,11 @@ module.exports = {
 
         const { username,email, password } = req.body;
          
-        if(!(username || email) && !password){throw new CustomError("Username or email and password are required", 401);}
+        if(!(username || email) && !password) throw new CustomError("Username or email and password are required", 401);
          
+        const user = await User.findOne({$or: [{username}, {email}], password}); // find user by username or email and password
+        if(!user) throw new CustomError("Invalid username/email or password", 401);
+        if(!user.isActive) throw new CustomError("User is not active", 401);
         
         res.status(200).send({ 
             error: false,
