@@ -1,5 +1,4 @@
 # SliceMaster – Mern Pizza App
-A secure, scalable Node.js backend for pizza ordering – with JWT auth and email support.
 
 SliceMaster is a full-stack pizza ordering and delivery web application built using the MERN stack: MongoDB, Express.js, React, and Node.js. The project features a fully functional RESTful API, secure user authentication, and a responsive frontend interface, providing users with a smooth experience from browsing the menu to placing and tracking their orders.
 
