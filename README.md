@@ -9,12 +9,58 @@ This application allows users to browse a menu of available pizzas, add items to
 
 ## Tech Stack
 
-The backend is developed using Node.js and Express.js, with MongoDB as the database and Mongoose for data modeling. The frontend is built with React and communicates with the backend using Axios. The application uses JWT for secure authentication and dotenv for managing environment variables. Postman was used during development for testing the API endpoints.
 
-
+- **MongoDB** – NoSQL database for storing users, pizzas, and orders
+- **Express.js** – Web framework for building the API
+- **Node.js** – JavaScript runtime environment
+- **Mongoose** – ODM to interact with MongoDB
+- **JWT** – For user authentication and access control
+- **Swagger** – For documenting and testing the API
+  
 ## Project Structure
 
 The project is divided into two main folders: client for the React frontend and server for the Express backend. The backend contains models, routes, and controllers to handle business logic, while the frontend includes components and pages for the user interface.
+
+
+---
+
+## API Endpoints Overview
+
+All endpoints follow REST conventions and are grouped by resource:
+
+| Method | Endpoint           | Description                  |
+|--------|--------------------|------------------------------|
+| POST   | `/auth/register`   | Register a new user          |
+| POST   | `/auth/login`      | Authenticate user & get token |
+| GET    | `/pizza`           | Get list of pizzas           |
+| POST   | `/pizza`           | Create a new pizza (admin)   |
+| GET    | `/order`           | Get orders (user or admin)   |
+| POST   | `/order`           | Place a new order            |
+| GET    | `/topping`         | List all toppings            |
+| POST   | `/topping`         | Add a new topping (admin)    |
+
+More endpoints are available and documented in Swagger.
+
+---
+
+## Install dependencies
+
+npm install
+
+## Set up your .env file
+
+PORT=5000
+MONGO_URI=your_mongo_uri
+JWT_SECRET=your_secret_key
+
+## Middleware & Utilities
+Authentication – Middleware for JWT verification
+
+Permissions – Role-based access (admin/user)
+
+ErrorHandler – Centralized error formatting
+
+Logger – Simple request logging for dev/debugging
 
 ## License
 
