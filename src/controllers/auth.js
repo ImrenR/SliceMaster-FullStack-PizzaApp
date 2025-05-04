@@ -1,8 +1,9 @@
 "use strict";
-const { token } = require("morgan");
+const Token = require("../models/token");
 const CustomError = require("../helpers/customError");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
   login: async (req, res) => {
@@ -32,23 +33,45 @@ module.exports = {
     }); // find user by username or email and password
     if (!user) throw new CustomError("Invalid username/email or password", 401);
     if (!user.isActive) throw new CustomError("User is not active", 401);
+    
     /* Simple Token */
     /*  #to see whether the user has token  or not */
 
-    let tokenData = await User.findOne({ userId: user._id });
+    let tokenData = await Token.findOne({ userId: user._id });
     if (!tokenData) {
       tokenData = await Token.create({
         userId: user._id,
         token: passwordEncrypt(Date.now() + user._id),
       });
-    }
+    };
 
     /* Simple Token */
 
+    /* JWT Token */
+      // Access Token //
+  const accessData = {
+        _id: user._id,
+        username: user.username,
+        isActive: user.isActive,
+        isAdmin: user.isAdmin
+  }
+
+//   const accessToken = jwt.sign(payload,secretKey,lifetime)
+
+const accessToken = jwt.sign(accessData, process.env.ACCESS_KEY, {expiresIn: '15m'});
+     // Refresh Token //:
+
+     const refreshToken = jwt.sign({_id:user._id}, process.env.REFRESH_KEY,{expiresIn:'id'});
+
+     /* JWT Token */
     res.status(200).send({
       error: false,
+      bearer:{
+        access:accessToken,
+        refresh:refreshToken
+      },
       token: tokenData.token,
-      message: "Login successful",
+      user:user
     });
   },
   logout: async (req, res) => {
