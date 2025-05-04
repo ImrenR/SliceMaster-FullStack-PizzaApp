@@ -19,8 +19,8 @@ const app = express()
 // envVariables to process.env:
 require('dotenv').config()
 const PORT = process.env?.PORT || 8000
-
-
+// query parse was 'extended' with v5 it is using built in library which is 'qs'
+app.set('query parser', 'extended')
 /* ------------------------------------------------------- */
 // Configrations:
 
