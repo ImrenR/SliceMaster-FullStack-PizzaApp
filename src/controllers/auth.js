@@ -98,12 +98,33 @@ const accessToken = jwt.sign(accessData, process.env.ACCESS_KEY, {expiresIn: '15
     })
   }
   },
-  
+
   refresh: async (req, res) => {
-    // Implement refresh logic here
-    res.status(200).send({
+   
+    const {refresh} =req.body;
+
+    if(!refresh) throw new CustomError("Refresh token is required", 401);
+
+    const refreshData=jwt.verify(refresh,process.env.REFRESH_KEY);
+    
+    if(!refreshData) throw new CustomError('JWT Refresh Token is wrong.')
+
+    const user = await User.findById(refreshData._id);
+    if(!user) throw new CustomError('JWT Refresh Token data is broken');
+    
+    if(!user.isActive) throw new CustomError('User is not active.');
+
+    const accessData = {
+        _id: user._id,
+        username: user.username,
+        isActive: user.isActive,
+        isAdmin: user.isAdmin
+  }
+
+const accessToken = jwt.sign(accessData, process.env.ACCESS_KEY, {expiresIn: '15m'});
+        res.status(200).send({
       error: false,
-      message: "Token refreshed successfully",
+      access: accessToken,
     });
   },
   // Add more functions as needed
