@@ -75,7 +75,7 @@ module.exports = {
      result,
     });
   },
-  delete: async (req, res) => {
+  deleteUser: async (req, res) => {
 
   /*  #swagger.tags = ['Users']
             #swagger.summary = 'Delete Users'  
