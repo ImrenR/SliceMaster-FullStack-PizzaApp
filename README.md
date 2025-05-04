@@ -16,11 +16,7 @@ The backend is developed using Node.js and Express.js, with MongoDB as the datab
 
 The project is divided into two main folders: client for the React frontend and server for the Express backend. The backend contains models, routes, and controllers to handle business logic, while the frontend includes components and pages for the user interface.
 
-## Future Improvements
-
-Potential future additions include real-time order updates using WebSockets (e.g., Socket.io), integration with payment gateways like Stripe or PayPal, user order history, and an analytics dashboard for the admin panel.
-
-##License
+## License
 
 This project is open-source and available for use and modification.
 
