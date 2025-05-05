@@ -2,6 +2,8 @@
 
 const User = require("../models/user");
 
+const sendMail = require("../helpers/sendMail");
+
 module.exports = {
   list: async (req, res) => {
     /* 
@@ -41,6 +43,14 @@ module.exports = {
       throw new Error("Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character");
     }
     const result = await User.create(req.body);
+
+    if(result){
+      sendMail(result.email, "Welcome to our service", `
+        <h1>Welcome to our service</h1>
+        <p>Dear ${result.username}</p>
+        <p>Verif your email </p>
+        `);
+        }
 
     res.status(201).send({
       error: false,

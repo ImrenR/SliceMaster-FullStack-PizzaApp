@@ -3,7 +3,7 @@
 const transporter = require("../configs/nodemailer");
 
 
-function sendMail(to,subject,message){
+module.exports = function sendMail(to,subject,message){
   transporter.sendMail({
   from: process.env.ADMIN_EMAIL,
   to,
