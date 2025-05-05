@@ -44,6 +44,49 @@ app.use(require('./src/middlewares/authentication'))
 app.use(require('./src/middlewares/queryHandler'))
 
 /* ------------------------------------------------------- */
+//Email
+// npm i nodemailer
+
+const nodemailer = require('nodemailer')
+/* ------------------------------------------------------- */
+// Send email with ethernal (fake) email
+// Create Tet Account:
+
+// nodemailer.createTestAccount().then(email=>console.log(email));
+
+// user: 'voeoqmumy3vcdz72@ethereal.email',
+//   pass: 'fz8d8EAhc739sajS6K',
+//   smtp: { host: 'smtp.ethereal.email', port: 587, secure: false },
+//   imap: { host: 'imap.ethereal.email', port: 993, secure: true },
+//   pop3: { host: 'pop3.ethereal.email', port: 995, secure: true },
+//   web: 'https://ethereal.email',
+//   mxEnabled: false
+
+// Connect to MailServer / SMTP:
+const transporter = nodemailer.createTransport({
+     host: 'smtp.ethereal.email',
+    port: 587,
+    secure: false,
+    auth: {
+        user: 'voeoqmumy3vcdz72@ethereal.email',
+        pass: 'fz8d8EAhc739sajS6K', }
+});
+
+
+// Send Mail:
+transporter.sendMail({
+    from: 'voeoqmumy3vcdz72@ethereal.email',
+    to: 'imren@gmail.com',
+    subject: 'Test Email',
+    html: '<h1>Hello</h1><p>Test Email</p>',
+    text: 'Test Email',
+},function ( error, success) {
+    success ? console.log('Email sent: ' , success) :
+    console.log('Error: ' , error);
+});
+
+
+/* ------------------------------------------------------- */
 // Routes:
 
 // routes/index.js:
