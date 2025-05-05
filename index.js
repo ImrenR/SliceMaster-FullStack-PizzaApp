@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 /* -------------------------------------------------------
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
@@ -10,46 +10,47 @@
     $ mkdir logs
     $ nodemon
 */
-const express = require('express')
-const app = express()
+const express = require("express");
+const app = express();
 
 /* ------------------------------------------------------- */
 // Required Modules:
 
 // envVariables to process.env:
-require('dotenv').config()
-const PORT = process.env?.PORT || 8000
+require("dotenv").config();
+const PORT = process.env?.PORT || 8000;
 // query parse was 'extended' with v5 it is using built in library which is 'qs'
-app.set('query parser', 'extended')
+app.set("query parser", "extended");
 /* ------------------------------------------------------- */
 // Configrations:
 
 // Connect to DB:
-const { dbConnection } = require('./src/configs/dbConnection')
-dbConnection()
+const { dbConnection } = require("./src/configs/dbConnection");
+dbConnection();
 
 /* ------------------------------------------------------- */
 // Middlewares:
 
 // Accept JSON:
-app.use(express.json())
+app.use(express.json());
 
 // Logger:
-app.use(require('./src/middlewares/logger'))
+app.use(require("./src/middlewares/logger"));
 
 // Auhentication:
-app.use(require('./src/middlewares/authentication'))
+app.use(require("./src/middlewares/authentication"));
 
 // findSearchSortPage / res.getModelList:
-app.use(require('./src/middlewares/queryHandler'))
+app.use(require("./src/middlewares/queryHandler"));
 
 /* ------------------------------------------------------- */
 //Email
 // npm i nodemailer
 
-const nodemailer = require('nodemailer')
-/* ------------------------------------------------------- */
+const nodemailer = require("nodemailer");
+
 // Send email with ethernal (fake) email
+/* ------------------------------------------------------- */
 // Create Tet Account:
 
 // nodemailer.createTestAccount().then(email=>console.log(email));
@@ -63,56 +64,87 @@ const nodemailer = require('nodemailer')
 //   mxEnabled: false
 
 // Connect to MailServer / SMTP:
+// const transporter = nodemailer.createTransport({
+//   host: "smtp.ethereal.email",
+//   port: 587,
+//   secure: false,
+//   auth: {
+//     user: "voeoqmumy3vcdz72@ethereal.email",
+//     pass: "fz8d8EAhc739sajS6K",
+//   },
+// });
+
+// // Send Mail:
+// transporter.sendMail({
+//     from: 'voeoqmumy3vcdz72@ethereal.email',
+//     to: 'imren@gmail.com',
+//     subject: 'Test Email',
+//     html: '<h1>Hello</h1><p>Test Email</p>',
+//     text: 'Test Email',
+// },function ( error, success) {
+//     success ? console.log('Email sent: ' , success) :
+//     console.log('Error: ' , error);
+// });
+
+// Send email with ethernal (fake) email
+
+/* ------------------------------------------------------- */
+// Send email with gmail service
+//GoogleMail (gmail)
+
+//Google->AcountHome ->Security-> Two-Step-Verify(make it on) -> App-Passwords (if not showing use this link: https://myaccount.google.com/apppasswords) -> Select App: Mail, Device: Other (Custom name) -> Generate -> Copy the password
+
+// (password)
+// Connect to MailServer / SMTP:
 const transporter = nodemailer.createTransport({
-     host: 'smtp.ethereal.email',
-    port: 587,
-    secure: false,
+    service: "gmail",
     auth: {
-        user: 'voeoqmumy3vcdz72@ethereal.email',
-        pass: 'fz8d8EAhc739sajS6K', }
-});
+      user: "imrenrahbay@gmail.com",
+      pass: "azey nkwz givq fagx",
+    },
+  });
+  
+  // Send Mail:
+  transporter.sendMail({
+      from: 'imrenrahbay@gmail.com',
+      to: 'irahbay@gmail.com',
+      subject: 'Test Email',
+      html: '<h1>Hello</h1><p>Test Email</p>',
+      text: 'Test Email',
+  },function ( error, success) {
+      success ? console.log('Email sent: ' , success) :
+      console.log('Error: ' , error);
+  });
 
 
-// Send Mail:
-transporter.sendMail({
-    from: 'voeoqmumy3vcdz72@ethereal.email',
-    to: 'imren@gmail.com',
-    subject: 'Test Email',
-    html: '<h1>Hello</h1><p>Test Email</p>',
-    text: 'Test Email',
-},function ( error, success) {
-    success ? console.log('Email sent: ' , success) :
-    console.log('Error: ' , error);
-});
-
-
+// Send email with gmail service
 /* ------------------------------------------------------- */
 // Routes:
 
 // routes/index.js:
-app.use('/', require('./src/routes'))
+app.use("/", require("./src/routes"));
 
 // HomePath:
-app.all('/', (req, res) => {
-    res.send({
-        error: false,
-        message: 'Welcome to PIZZA API',
-        docs: {
-            swagger: "/documents/swagger",
-            redoc: "/documents/redoc",
-            json: "/documents/json",
-        },
-        user: req.user,
-    })
-})
+app.all("/", (req, res) => {
+  res.send({
+    error: false,
+    message: "Welcome to PIZZA API",
+    docs: {
+      swagger: "/documents/swagger",
+      redoc: "/documents/redoc",
+      json: "/documents/json",
+    },
+    user: req.user,
+  });
+});
 
 /* ------------------------------------------------------- */
 
 // errorHandler:
-app.use(require('./src/middlewares/errorHandler'))
+app.use(require("./src/middlewares/errorHandler"));
 
 // RUN SERVER:
-app.listen(PORT, () => console.log('http://127.0.0.1:' + PORT))
+app.listen(PORT, () => console.log("http://127.0.0.1:" + PORT));
 
 /* ------------------------------------------------------- */
 // Syncronization (must be in commentLine):
