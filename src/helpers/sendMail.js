@@ -1,12 +1,15 @@
 'use strict'
 
-function sendMail(){
+const transporter = require("../configs/nodemailer");
+
+
+function sendMail(to,subject,message){
   transporter.sendMail({
-  from: 'imrenrahbay@gmail.com',
-  to: 'irahbay@gmail.com',
-  subject: 'Test Email',
-  html: '<h1>Hello</h1><p>Test Email</p>',
-  text: 'Test Email',
+  from: process.env.ADMIN_EMAIL,
+  to,
+  subject,
+  html: message,
+  text: message,
 },function ( error, success) {
   success ? console.log('Email sent: ' , success) :
   console.log('Error: ' , error);
