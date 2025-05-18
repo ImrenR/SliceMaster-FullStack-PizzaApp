@@ -6,6 +6,6 @@
   service: 'gmail',
   auth: {
     user: process.env.ADMIN_EMAIL,
-    pass: process.env.EMAIL_PASSWORD,
+    pass: process.env.EMAIL_PASSWORD, 
   }
  });

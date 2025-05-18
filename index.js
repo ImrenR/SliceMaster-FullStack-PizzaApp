@@ -51,7 +51,7 @@ const nodemailer = require("nodemailer");
 
 // Send email with ethernal (fake) email
 /* ------------------------------------------------------- */
-// Create Tet Account:
+// Create Test Account:
 
 // nodemailer.createTestAccount().then(email=>console.log(email));
 
@@ -96,25 +96,25 @@ const nodemailer = require("nodemailer");
 
 // (password)
 // Connect to MailServer / SMTP:
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "imrenrahbay@gmail.com",
-      pass: "azey nkwz givq fagx",
-    },
-  });
+// const transporter = nodemailer.createTransport({
+//     service: "gmail",
+//     auth: {
+//       user: "imrenrahbay@gmail.com",
+//       pass: "azey nkwz givq fagx",
+//     },
+//   });
   
-  // Send Mail:
-  transporter.sendMail({
-      from: 'imrenrahbay@gmail.com',
-      to: 'irahbay@gmail.com',
-      subject: 'Test Email',
-      html: '<h1>Hello</h1><p>Test Email</p>',
-      text: 'Test Email',
-  },function ( error, success) {
-      success ? console.log('Email sent: ' , success) :
-      console.log('Error: ' , error);
-  });
+  // // Send Mail:
+  // transporter.sendMail({
+  //     from: 'imrenrahbay@gmail.com',
+  //     to: 'irahbay@gmail.com',
+  //     subject: 'Test Email',
+  //     html: '<h1>Hello</h1><p>Test Email</p>',
+  //     text: 'Test Email',
+  // },function ( error, success) {
+  //     success ? console.log('Email sent: ' , success) :
+  //     console.log('Error: ' , error);
+  // });
 
 
 // Send email with gmail service
