@@ -83,6 +83,7 @@ module.exports = {
     const auth = req.headers?.authorization;
     const tokenArr = auth ? auth.split(" ") : null;
 
+ 
     if (tokenArr && tokenArr[0] == "Token") {
       const tokenData = await Token.deleteOne({ token: tokenArr[1] });
 
@@ -90,8 +91,9 @@ module.exports = {
         error: false,
         result,
         message: "Simple Token: Token deleted successfully",
+
       });
-    } else if (tokenArr && tokenArr[0] == "Bearer") {
+    } else if (tokenArr && tokenArr[0] == "Bearer") { // if there is Bearer, the one will logout with JWT
       res.status(200).send({
         error: false,
         message:
@@ -101,18 +103,20 @@ module.exports = {
   },
 
   refresh: async (req, res) => {
+
     const { refresh } = req.body;
+ 
+    if (!refresh) throw new CustomError("Refresh token is required", 401); // if refresh did not arrive
 
-    if (!refresh) throw new CustomError("Refresh token is required", 401);
-
-    const refreshData = jwt.verify(refresh, process.env.REFRESH_KEY);
+    const refreshData = jwt.verify(refresh, process.env.REFRESH_KEY); // verify 
 
     if (!refreshData) throw new CustomError("JWT Refresh Token is wrong.");
 
-    const user = await User.findById(refreshData._id);
-    if (!user) throw new CustomError("JWT Refresh Token data is broken");
+    const user = await User.findById(refreshData._id); // verify user
+ 
+    if (!user) throw new CustomError("JWT Refresh Token data is broken"); //if user is not found
 
-    if (!user.isActive) throw new CustomError("User is not active.");
+    if (!user.isActive) throw new CustomError("User is not active."); // if user is not active
 
     const accessData = {
       _id: user._id,
@@ -124,6 +128,7 @@ module.exports = {
     const accessToken = jwt.sign(accessData, process.env.ACCESS_KEY, {
       expiresIn: "15m",
     });
+    
     res.status(200).send({
       error: false,
       access: accessToken,
