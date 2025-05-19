@@ -5,7 +5,7 @@
 const { mongoose } = require('../configs/dbConnection')
 /* ------------------------------------------------------- */
 
-const PizzaSchema=new mongoose.Schema({
+const PizzaSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
@@ -13,7 +13,7 @@ const PizzaSchema=new mongoose.Schema({
         unique: true,
       },
       
-      image:String,
+      image: String,
       // image: [String] //Multiple data
       price:{
         type:Number,

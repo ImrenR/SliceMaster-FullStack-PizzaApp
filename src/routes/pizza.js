@@ -10,21 +10,19 @@ const pizza = require("../controllers/pizza");
 const multer = require("multer");
 
 const upload = multer({
-  // dest:'./uploads/', // destination of images
+  // dest:'./uploads/', // destination of images  
   storage: multer.diskStorage({
-    
-
-  })
-
-
-  
+    destination: './uploads',
+    filename: function(req,file,cb) {
+      cb(null,Date.now() + '_'  + file.originalname)
+    }
+  }), 
 });
 
-
-
-
 /* ------------------------------------------------------- */
-router.route("/").get(pizza.list).post(pizza.create);
+router.route("/")
+.get(pizza.list)
+.post(upload.single('image'),pizza.create);
 
 router
   .route("/:id")
